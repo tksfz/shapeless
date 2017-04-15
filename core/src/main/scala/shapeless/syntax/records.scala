@@ -34,6 +34,11 @@ final class RecordOps[L <: HList](val l : L) extends AnyVal with Serializable {
    * with keyType equal to the singleton type k.T.
    */
   def get(k: Witness)(implicit selector : Selector[L, k.T]): selector.Out = selector(l)
+
+  /**
+    * Returns the values associated with the keys contained in K.  Only available if this record has
+    */
+  def getAll[K](k: K)(implicit selectAll: SelectAll[L, K]): selectAll.Out = selectAll(l)
   
   /**
    * Returns the value associated with the singleton typed key k. Only available if this record has a field with
